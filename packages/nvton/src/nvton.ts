@@ -101,14 +101,17 @@ export class NVTON {
 		if (options) this.loadDefaultConfig(options, true);
 
 		lexeme.forEach((item) => {
-			if (Array.isArray(item)) this.load(item, null, { isTuple: true });
-			else {
+			if (Array.isArray(item)) { 
+        this.size.tuples.source.count++;
+        this.load(item, null, { isTuple: true }); 
+      } else {
 				if (runner?.isTuple) this.size.tuples.all.count++;
 
 				const get = utils().keyGet(item.key);
 				const set = utils().keySet(item.key, runner);
 
 				const target = this.data.get(get.raw);
+        this.size.raw++;
 
 				if (this.options.warnings.wrongKey && target === undefined) {
 					warning(
