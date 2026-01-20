@@ -22,4 +22,14 @@ describe('NVTON', () => {
 
 		expect(data.format()).toEqual('[0, 1, [["key" | "value"], ["test" | "test"]]]');
 	});
+	it('expect get with internals values', () => {
+		const data = nvton('[0]');
+
+		expect(data.get('0 ?')).toEqual({
+			fail: true,
+			quantity: 1,
+			type: 'default',
+			value: '__FAIL__',
+		});
+	});
 });

@@ -163,15 +163,16 @@ export class NVTON {
 	public get(target: string) {
 		// TODO: language for deep search in foundation
 		// TODO: support recursive tuples
-		const key = target.replace(LANG_TUPLE_KEY, EMPTY);
-		const _data = this.data.get(key) as Maybe<LexerMap>;
+		const _key = target.replace(LANG_TUPLE_KEY, EMPTY);
+		const _data = this.data.get(_key.replace('?', '').trim()) as Maybe<LexerMap>;
+
 		let quantity = 1;
 
-		const data = getLanguage(key);
+		const data = getLanguage(_key);
 		const isInternals = data.internals;
 
 		if (isInternals) {
-			const fail = !!data;
+			const fail = !!_data;
 
 			return {
 				value: fail ? FAIL : _data!.value,

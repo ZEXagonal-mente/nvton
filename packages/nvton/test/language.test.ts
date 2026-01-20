@@ -6,28 +6,28 @@ describe('LANGUAGE', () => {
 		expect(getLanguage('foo')).toMatchObject({ raw: 'foo' });
 	});
 	it('expect oneRight input', () => {
-		expect(getLanguage('foo > foo')).toMatchObject({ raw: 'foo > foo', oneRight: true });
+		expect(getLanguage('foo >')).toMatchObject({ raw: 'foo', oneRight: true });
 	});
 	it('expect twoRight input', () => {
-		expect(getLanguage('foo >> foo')).toMatchObject({
-			raw: 'foo >> foo',
+		expect(getLanguage('foo >>')).toMatchObject({
+			raw: 'foo',
 			twoRight: true,
 		});
 	});
 	it('expect threeRight input', () => {
-		expect(getLanguage('foo >>> foo')).toMatchObject({
-			raw: 'foo >>> foo',
+		expect(getLanguage('foo >>>')).toMatchObject({
+			raw: 'foo',
 			threeRight: true,
 		});
 	});
 	it('expect oneLeft input', () => {
-		expect(getLanguage('foo < foo')).toMatchObject({ raw: 'foo < foo', oneLeft: true });
+		expect(getLanguage('foo <')).toMatchObject({ raw: 'foo', oneLeft: true });
 	});
 	it('expect attention input', () => {
-		expect(getLanguage('foo ! foo')).toMatchObject({ raw: 'foo ! foo', attention: true });
+		expect(getLanguage('foo !')).toMatchObject({ raw: 'foo', attention: true });
 	});
 	it('expect internals input', () => {
-		expect(getLanguage('foo ? foo')).toMatchObject({ raw: 'foo ? foo', internals: true });
+		expect(getLanguage('foo ?')).toMatchObject({ raw: 'foo', internals: true });
 	});
 	it('expect clean input', () => {
 		expect(getLanguage('foo')).toMatchObject({ raw: 'foo', clean: true });
