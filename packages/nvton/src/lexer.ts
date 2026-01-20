@@ -48,8 +48,8 @@ export const run = (
 	options?: { init?: { deep?: number; prev?: string; lexeme?: string } }
 ) => {
 	let deep = options?.init?.deep || 0;
-	let prev = options?.init?.prev || '';
-	let lexeme = options?.init?.lexeme || '';
+	let prev = options?.init?.prev || EMPTY;
+	let lexeme = options?.init?.lexeme || EMPTY;
 	const items = [] as string[];
 
 	const setAndReset = () => {
@@ -74,7 +74,7 @@ export const run = (
 
 		if (key === CLOSE_BRACKET) {
 			deep--;
-			if (deep === 0) setAndReset();
+			if (deep < 1) setAndReset();
 		}
 
 		if (key !== SPACE) prev = key;
@@ -124,7 +124,7 @@ export const lex = (raw: string, options?: NvtonOptions): LexerResult => {
 				if (common !== true) {
 					return {
 						// TODO: correct normalize keys in runner for edge case problems
-						key: structure.key.replace(/'/g, '').replace(OPEN_BRACKET, ''),
+						key: structure.key.replace(/'/g, EMPTY).replace(OPEN_BRACKET, EMPTY),
 						type: common.type,
 						data: common.data,
 					};

@@ -1,4 +1,4 @@
-import { NvtonOptions } from './types';
+import type { NvtonOptions } from './types';
 
 export const OPEN_BRACKET = '[';
 export const CLOSE_BRACKET = ']';

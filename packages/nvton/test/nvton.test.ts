@@ -8,7 +8,7 @@ describe('NVTON', () => {
 		expect(data.get('0')).toEqual(0);
 	});
 	it('expect NVTON instance correct size', () => {
-		const data = nvton('[[["foo": "foo"], ["bar": "bar"], ["baz": "baz"]]]');
+		const data = nvton('[["foo": "foo"], ["bar": "bar"], ["baz": "baz"]]');
 
 		expect(data.info().size.all).toEqual(3);
 	});

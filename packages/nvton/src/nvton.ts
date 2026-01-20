@@ -16,6 +16,7 @@ import {
 	CLOSE_BRACKET,
 	COMMA,
 	DEFAULT_CONFIG,
+	EMPTY,
 	EXTENSION,
 	FAIL,
 	LANG_TUPLE_KEY,
@@ -109,9 +110,9 @@ export class NVTON {
 
 				const target = this.data.get(get.raw);
 
-				if (this.options.warnings.wrongKey && target) {
+				if (this.options.warnings.wrongKey && target === undefined) {
 					warning(
-						`${get.raw} exists and is ignored. use merge: { object: true } in options for merge values in object.`
+						`${get.raw} exists and is ignored. Use merge: { object: true } in options for merge values in object.`
 					);
 				} else {
 					let value = item.data;
@@ -137,16 +138,17 @@ export class NVTON {
 						typeof target.value === 'number' &&
 						typeof value === 'number'
 					) {
-						value += target.value;
+						value += target.value as number;
 					}
 
 					this.data.set(set, {
 						type: item.type,
 						value,
 					});
+
+					this.size.all++;
 				}
 			}
-			this.size.all++;
 		});
 	}
 
@@ -158,7 +160,7 @@ export class NVTON {
 	public get<T extends Maybe<boolean>>(target: string, internals?: T) {
 		// TODO: language for deep search in foundation
 		// TODO: support recursive tuples
-		const data = this.data.get(target.replace(LANG_TUPLE_KEY, '')) as Maybe<LexerMap>;
+		const data = this.data.get(target.replace(LANG_TUPLE_KEY, EMPTY)) as Maybe<LexerMap>;
 		let quantity = 1;
 
 		// TODO: remove internals option to return type with expose internal target language (e.g: nvton.get('key ?'))
@@ -208,7 +210,7 @@ export class NVTON {
 			index++;
 		});
 
-		if (deepTuple !== 0) data += CLOSE_BRACKET;
+		// if (deepTuple !== 0) data += CLOSE_BRACKET;
 		data += CLOSE_BRACKET;
 
 		return data;
