@@ -38,3 +38,14 @@ export interface UtilsKeyGet {
 	type: 'tuple' | 'common';
 	raw: string;
 }
+
+export interface LanguageItem {
+	raw: string;
+	clean?: boolean;
+	oneRight?: boolean;
+	twoRight?: boolean;
+	threeRight?: boolean;
+	oneLeft?: boolean;
+	attention?: boolean;
+	internals?: boolean;
+}

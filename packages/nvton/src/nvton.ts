@@ -26,6 +26,7 @@ import {
 } from './constants';
 import { lex } from './lexer';
 import { warning } from './console';
+import { getLanguage } from './language';
 
 const utils = () => {
 	const keySet = (_key: string, runner?: NvtonLoadRunner) => {
@@ -101,17 +102,17 @@ export class NVTON {
 		if (options) this.loadDefaultConfig(options, true);
 
 		lexeme.forEach((item) => {
-			if (Array.isArray(item)) { 
-        this.size.tuples.source.count++;
-        this.load(item, null, { isTuple: true }); 
-      } else {
+			if (Array.isArray(item)) {
+				this.size.tuples.source.count++;
+				this.load(item, null, { isTuple: true });
+			} else {
 				if (runner?.isTuple) this.size.tuples.all.count++;
 
 				const get = utils().keyGet(item.key);
 				const set = utils().keySet(item.key, runner);
 
 				const target = this.data.get(get.raw);
-        this.size.raw++;
+				this.size.raw++;
 
 				if (this.options.warnings.wrongKey && target === undefined) {
 					warning(
@@ -159,27 +160,28 @@ export class NVTON {
 		this.load(lex(raw), null, undefined);
 	}
 
-	// TODO: return type with expose internal
-	public get<T extends Maybe<boolean>>(target: string, internals?: T) {
+	public get(target: string) {
 		// TODO: language for deep search in foundation
 		// TODO: support recursive tuples
-		const data = this.data.get(target.replace(LANG_TUPLE_KEY, EMPTY)) as Maybe<LexerMap>;
+		const key = target.replace(LANG_TUPLE_KEY, EMPTY);
+		const _data = this.data.get(key) as Maybe<LexerMap>;
 		let quantity = 1;
 
-		// TODO: remove internals option to return type with expose internal target language (e.g: nvton.get('key ?'))
-		// const isInternals = target.endsWith(` ${LANG_EXPOSE_INTERNALS}`)
-		if (internals) {
+		const data = getLanguage(key);
+		const isInternals = data.internals;
+
+		if (isInternals) {
 			const fail = !!data;
 
 			return {
-				value: fail ? FAIL : data!.value,
-				type: fail ? 'default' : data!.type,
+				value: fail ? FAIL : _data!.value,
+				type: fail ? 'default' : _data!.type,
 				fail,
 				quantity,
 			} as DataInternals;
 		}
 
-		return data!.value;
+		return _data!.value;
 	}
 
 	public format(external?: Map<LexerKey, LexerMap>) {
