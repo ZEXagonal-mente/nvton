@@ -14,4 +14,3 @@ catalog:
   destr: '^2.0.5'
   fs-extra: '^11.3.2'
   pathe: '^2.0.3'
-  uuid: '^13.0.0'
