@@ -1,11 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { nvton } from '../src/pipeline';
+import { FAIL } from '../src/constants';
 
 describe('NVTON', () => {
 	it('expect NVTON instance exists', () => {
 		const data = nvton('[0]');
 
 		expect(data.get('0')).toEqual(0);
+	});
+  it('expect NVTON fail', () => {
+		const data = nvton('[0]');
+
+		expect(data.get('1')).toEqual(FAIL);
 	});
 	it('expect NVTON instance correct size', () => {
 		const data = nvton('[["foo": "foo"], ["bar": "bar"], ["baz": "baz"]]');
@@ -18,9 +24,9 @@ describe('NVTON', () => {
 		);
 	});
 	it('expect format result with correct format', () => {
-		const data = nvton('[0, 1, [["key" | "value"], ["test" | "test"]]]');
+		const data = nvton('[0, 1, [["key" | "value"], ["test" | "test"]], 2]');
 
-		expect(data.format()).toEqual('[0, 1, [["key" | "value"], ["test" | "test"]]]');
+		expect(data.format()).toEqual('[0, 1, [["key" | "value"], ["test" | "test"]], 2]');
 	});
 	it('expect get with internals values', () => {
 		const data = nvton('[0]');
