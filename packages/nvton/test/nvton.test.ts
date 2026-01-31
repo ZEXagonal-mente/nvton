@@ -23,7 +23,12 @@ describe('NVTON', () => {
 			'null.nvton file not found or datatype is wrong!'
 		);
 	});
-	it('expect format result with correct format', () => {
+	it('expect format result with correct only tuples', () => {
+		const data = nvton('[[["foo" | "foo"], ["bar" | "bar"], ["baz" | "baz"]]]');
+
+		expect(data.format()).toEqual('[[["foo" | "foo"], ["bar" | "bar"], ["baz" | "baz"]]]');
+	});
+  it('expect format result with correct', () => {
 		const data = nvton('[0, 1, [["key" | "value"], ["test" | "test"]], 2]');
 
 		expect(data.format()).toEqual('[0, 1, [["key" | "value"], ["test" | "test"]], 2]');
