@@ -32,10 +32,10 @@ describe('NVTON', () => {
 		const data = nvton('[0]');
 
 		expect(data.get('0 ?')).toEqual({
-			fail: true,
+			fail: false,
 			quantity: 1,
 			type: 'default',
-			value: '__FAIL__',
+			value: 0,
 		});
 	});
 });

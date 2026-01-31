@@ -172,7 +172,7 @@ export class NVTON {
 		const isInternals = data.internals;
 
 		if (isInternals) {
-			const fail = !!_data;
+			const fail = !_data;
 
 			return {
 				value: fail ? FAIL : _data!.value,
@@ -205,7 +205,7 @@ export class NVTON {
 				deepTuple++;
 			} else {
 				if (deepTuple !== 0) {
-					data += `${CLOSE_BRACKET}${COMMA} ${result}`;
+					data += `${COMMA} ${result}`;
 				} else {
 					data += result;
 					if (index !== maxIndex) data += `${COMMA} `;
