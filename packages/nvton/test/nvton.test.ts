@@ -8,7 +8,7 @@ describe('NVTON', () => {
 
 		expect(data.get('0')).toEqual(0);
 	});
-  it('expect NVTON fail', () => {
+	it('expect NVTON fail', () => {
 		const data = nvton('[0]');
 
 		expect(data.get('1')).toEqual(FAIL);
@@ -26,9 +26,11 @@ describe('NVTON', () => {
 	it('expect format result with correct only tuples', () => {
 		const data = nvton('[[["foo" | "foo"], ["bar" | "bar"], ["baz" | "baz"]]]');
 
-		expect(data.format()).toEqual('[[["foo" | "foo"], ["bar" | "bar"], ["baz" | "baz"]]]');
+		expect(data.format()).toEqual(
+			'[[["foo" | "foo"], ["bar" | "bar"], ["baz" | "baz"]]]'
+		);
 	});
-  it('expect format result with correct', () => {
+	it('expect format result with correct', () => {
 		const data = nvton('[0, 1, [["key" | "value"], ["test" | "test"]], 2]');
 
 		expect(data.format()).toEqual('[0, 1, [["key" | "value"], ["test" | "test"]], 2]');

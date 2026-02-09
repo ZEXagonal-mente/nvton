@@ -30,7 +30,7 @@ import { getLanguage } from './language';
 
 const utils = () => {
 	const keySet = (_key: string, runner?: NvtonLoadRunner) => {
-		return runner?.isTuple ? `${LANG_TUPLE_KEY}${_key}` : _key
+		return runner?.isTuple ? `${LANG_TUPLE_KEY}${_key}` : _key;
 	};
 
 	const keyGet = (_key: LexerKey): UtilsKeyGet => {
@@ -192,7 +192,7 @@ export class NVTON {
 		// TODO: support recursive tuple format
 		let deepTuple = 0;
 		map.forEach((item, key, arr) => {
-			const result = String(item.value)
+			const result = String(item.value);
 			const { type, raw } = utils().keyGet(key);
 			const maxIndex = arr.size - 1;
 
