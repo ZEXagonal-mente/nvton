@@ -46,8 +46,6 @@
 `pnpm add nvton`
 `bun add nvton`
 
-### Work in Progress!!!
-
 ## Config
 
 #### Use local config (nvton.config.ts)
@@ -82,4 +80,24 @@ const nvt = nvton('[0]', { 'config': 'here' })
 ```
 ## Use
 
-### Work in Progress!!!
+### get
+
+```ts
+const nvt = nvton('[0, 1, [["key" | "value"], ["test" | "test"]], 2]')
+
+// 0
+console.log(nvt.get(0))
+
+// "value"
+console.log(nvt.get('key'))
+```
+
+### format
+
+```ts
+//...
+const nvt = nvton('[0, 1, [["key" | "value"], ["test" | "test"]], 2]')
+
+// "[0, 1, [["key" | "value"], ["test" | "test"]], 2]"
+console.log(nvt.format())
+```
