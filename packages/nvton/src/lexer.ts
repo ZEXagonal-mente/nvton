@@ -60,7 +60,8 @@ export const run = (
 		lexeme = EMPTY;
 	};
 
-	const normalize = isTuple(raw) ? removeBrackets(raw) : raw;
+	let normalize = isTuple(raw) ? removeBrackets(raw) : raw;
+  normalize = isTuple(normalize) ? removeBrackets(normalize) : normalize;
 
 	for (const key of normalize) {
 		if (key === OPEN_BRACKET) {

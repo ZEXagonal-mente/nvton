@@ -192,9 +192,15 @@ export class NVTON {
 		// TODO: support recursive tuple format
 		let deepTuple = 0;
 		map.forEach((item, key, arr) => {
-			const result = String(item.value);
+			let result = item.value;
 			const { type, raw } = utils().keyGet(key);
 			const maxIndex = arr.size - 1;
+
+      if(typeof item.value === 'string' && !item.value.startsWith('"')) {
+        result = `"${item.value}"`
+      } else {
+        result = String(item.value)
+      }
 
 			if (type === 'tuple') {
 				if (deepTuple === 0) {
@@ -216,7 +222,7 @@ export class NVTON {
 			index++;
 		});
 
-		// if (deepTuple !== 0) data += CLOSE_BRACKET;
+		if (deepTuple !== 0) data += CLOSE_BRACKET;
 		data += CLOSE_BRACKET;
 
 		return data;
